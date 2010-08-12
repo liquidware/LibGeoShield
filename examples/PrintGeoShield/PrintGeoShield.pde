@@ -6,6 +6,9 @@
  *
  *  Learn more at: http://www.liquidware.com/category/Sensors
  *****************************/
+#include <Wire.h>
+#include <LibCompass.h>
+#include <SoftwareSerial_NB.h>
 #include <LibGeoShield.h>
 
 LibGeoShield geo = LibGeoShield(0);
