@@ -1,0 +1,20 @@
+LibGeoShield
+===========
+
+A library for the fully integrated Liquidware GeoShield.
+
+The GeoShield is an integrated Arduino module with built-in
+              GPS, 3-Axis Accelerometer, and Digital Compass sensors
+              Learn more at http://www.liquidware.com/category/Sensors
+
+Features
+========
+
+* Hardware abstraction routines
+* GPS NMEA Data formatting
+* Prints GeoShield location data to any Arduino serial pins
+* Prints GPS location data
+* Prints 3-Axis Accelerometer data
+* Prints Digital Compass data
+* Compass Heading Calculation
+* Compass Interactive Magnetic Calibration
