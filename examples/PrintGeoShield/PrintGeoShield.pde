@@ -26,7 +26,7 @@ void loop() {
    /* Print the Compass heading, Accel X, Accel Y, Accel Z data */
    sprintf(out, "$GEO,H%d,X%d,Y%d,Z%d\n",
                 geo.readCompass(),
-                geo.readAccelY(),
+                geo.readAccelX(),
                 geo.readAccelY(),
                 geo.readAccelZ());
 
