@@ -40,6 +40,8 @@
 #define GPS_RX_PIN 4
 #define GPS_TX_PIN 5
 #define GPS_BUFF_SIZE 528
+#define G_SLOPE_5V	10.18
+#define G_OFFSET_5V	3437 
 
 LibCompass compass = LibCompass(COMPASS_HW_GEOSHIELD);
 SoftwareSerial_NB gps = SoftwareSerial_NB(GPS_RX_PIN, GPS_TX_PIN);
@@ -51,6 +53,9 @@ static char GPS_buff[GPS_BUFF_SIZE];
 
 LibGeoShield::LibGeoShield(uint8_t GeoShieldType) {
   gps.begin(9600);
+
+  _AccelGSlope = G_SLOPE_5V;  //If different supply, please calibrate
+  _AccelGOffset = G_OFFSET_5V; 
 }
 
 /******************************************************************************
@@ -91,33 +96,57 @@ int LibGeoShield::readCompass(void) {
 }
 
 /**********************************************************
+ * setSupply
+ *  Set the Arduino's voltage supply. Used 
+ *  for accelerometer volts to mg's conversion accuracy
+ *
+ * float supplyVolts - The measured voltage of 
+ *                     the AREF pin, eg. 4.97
+ **********************************************************/
+void LibGeoShield::setSupply(float supplyVolts) {
+  _AccelGSlope = (supplyVolts / 5.00) * G_SLOPE_5V;
+}
+
+/**********************************************************
  * readAccelX
  *  Reads the GeoShield's on-board accelerometer
  *
- * @return int - The accelerometer position data
+ * @return int - The accelerometer position data 
+ *			 in mg (thousands of a g)
  **********************************************************/
 int LibGeoShield::readAccelX(void) {
-  return analogRead(0);
+  float val;
+
+  val = _AccelGSlope * analogRead(0) - _AccelGOffset;
+  return (int)val;
 }
 
 /**********************************************************
  * readAccelY
  *  Reads the GeoShield's on-board accelerometer
  *
- * @return int - The accelerometer position data
+ * @return int - The accelerometer position data 
+ *			 in mg (thousands of a g)
  **********************************************************/
 int LibGeoShield::readAccelY(void) {
-  return analogRead(1);
+  float val;
+
+  val = _AccelGSlope * analogRead(1) - _AccelGOffset;
+  return (int)val;
 }
 
 /**********************************************************
- * readAccelX
+ * readAccelZ
  *  Reads the GeoShield's on-board accelerometer
  *
- * @return int - The accelerometer position data
+ * @return int - The accelerometer position data 
+ *			 in mg (thousands of a g)
  **********************************************************/
 int LibGeoShield::readAccelZ(void) {
-  return analogRead(2);
+  float val;
+
+  val = _AccelGSlope * analogRead(2) - _AccelGOffset;
+  return (int)val;
 }
 
 //Export the compass functions
