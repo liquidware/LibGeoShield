@@ -37,6 +37,8 @@ class LibGeoShield
 {
   private:
     int  GPS_buffIndex;
+    float _AccelGSlope;
+    int   _AccelGOffset;
 
   public:
     LibGeoShield(uint8_t GeoShieldType);
@@ -50,7 +52,7 @@ class LibGeoShield
     int readAccelX();
     int readAccelY();
     int readAccelZ();
+    void setSupply(float supplyVolts);
 };
 
 #endif
-
