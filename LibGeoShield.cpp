@@ -100,8 +100,8 @@ int LibGeoShield::readCompass(void) {
  *  Set the Arduino's voltage supply. Used 
  *  for accelerometer volts to mg's conversion accuracy
  *
- * float supplyVolts - The measured voltage of 
- *                     the AREF pin, eg. 4.97
+ * supplyVolts - The measured voltage of 
+ *               the AREF pin, for example, 4.97
  **********************************************************/
 void LibGeoShield::setSupply(float supplyVolts) {
   _AccelGSlope = (supplyVolts / 5.00) * G_SLOPE_5V;
@@ -160,4 +160,36 @@ void LibGeoShield::SleepCompass(void) {
 
 void LibGeoShield::WakeCompass(void) {
   compass.Wake();
+}
+
+/**********************************************************
+ * ledOn
+ *  The GeoShield has four onboard LEDs. Use this to 
+ *  control the GeoShield's LED.
+ *
+ *  ledNum - values are 0 - 3
+ **********************************************************/
+void LibGeoShield::ledOn(uint8_t ledNum) {
+  if ((ledNum < 0) || (ledNum > 3)) {
+    return;
+  }
+
+  pinMode(ledNum+10, OUTPUT);
+  digitalWrite(ledNum+10, LOW);
+}
+
+/**********************************************************
+ * ledOff
+ *  The GeoShield has four onboard LEDs. Use this to 
+ *  control the GeoShield's LED.
+ *
+ *  ledNum - values are 0 - 3
+ **********************************************************/
+void LibGeoShield::ledOff(uint8_t ledNum) {
+  if ((ledNum < 0) || (ledNum > 3)) {
+    return;
+  }
+
+  pinMode(ledNum+10, OUTPUT);
+  digitalWrite(ledNum+10, HIGH);
 }
