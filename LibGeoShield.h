@@ -53,6 +53,8 @@ class LibGeoShield
     int readAccelY();
     int readAccelZ();
     void setSupply(float supplyVolts);
+    void ledOn(uint8_t ledNum);
+    void ledOff(uint8_t ledNum);
 };
 
 #endif
